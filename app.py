@@ -162,11 +162,11 @@ def exportar_excel():
         estante = entrepano.estante
 
         filas.append({
+            "Codigo": item.codigo,
             "Ubicacion": f"P{estante.numero}{entrepano.nivel}{division.numero}",
             "Estante": estante.numero,
             "Entrepano": entrepano.nivel,
             "Division": division.numero,
-            "Codigo": item.codigo,
             "Descripcion": item.descripcion
         })
 
@@ -202,11 +202,11 @@ def exportar_pdf():
 
     # Encabezados
     data = [[
+        "Codigo",
         "Ubicacion",
         "Estante",
         "Entrepano",
         "Division",
-        "Codigo",
         "Descripcion"
         
     ]]
@@ -219,11 +219,11 @@ def exportar_pdf():
         estante = entrepano.estante
 
         data.append([
+            item.codigo,
             f"P{estante.numero}{entrepano.nivel}{division.numero}",
             str(estante.numero),
             entrepano.nivel,
             str(division.numero),
-            item.codigo,
             item.descripcion or ""
         ])
 

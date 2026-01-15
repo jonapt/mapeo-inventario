@@ -1,0 +1,7 @@
+flask
+pandas
+flask-sqlalchemy 
+flask-migrate
+openpyxl
+reportlab
+sqlite
