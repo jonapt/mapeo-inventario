@@ -1,105 +1,78 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalle Entrepaño</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+{% extends "base.html" %}
+{% block title %}Detalle Entrepano{% endblock %}
 
-<div class="container py-4">
+{% block content %}
+<h4 class="mb-3">
+    Estante {{ entrepano.estante.numero }} · Nivel {{ entrepano.nivel }}
+</h4>
 
-    <a href="{{ url_for('detalle_estante', estante_id=entrepano.estante.id) }}"
-       class="btn btn-secondary mb-3">
-        ← Volver al estante
-    </a>
+<!-- FORM ITEM -->
+<form method="POST" class="card p-3 mb-4" action="{{ url_for('crear_item', entrepano_id=entrepano.id) }}">
+    <h6 class="mb-3">➕ Nueva División</h6>
 
-    <h2 class="mb-4">
-        Estante {{ entrepano.estante.numero }} – Nivel {{ entrepano.nivel }}
-    </h2>
+    <input name="codigo"  type="text" maxlength="7" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" class="form-control mb-2" placeholder="Código" required>
+   
 
-    <!-- FORMULARIO -->
-    <form method="POST" class="mb-4">
-
-        <!-- División -->
-        <!-- ITEM -->
-         <div class="row g-3 mb-5">
-            <p><b>Codigo</b></p>
-            <input name="codigo" required>
-            <p><b>Descripción</b></p>
-            <textarea name="descripcion"></textarea>
-            <p><b>Maximo</b></p>
-            <input name="maximo" type="number">
-            <p><b>Minimo</b></p>
-            <input name="minimo" type="number">
-         </div>
-         
-
-        <!-- SOLO VISUAL -->
-        <p>
-            📍 Ubicación Relativa:
-            P{{ entrepano.estante.numero }}{{ entrepano.nivel }}
-        </p>
-        <button class="btn btn-primary w-10">
-            Añadir división
-        </button>
-    </form>
-
-    <!-- DIVISIONES -->
-    <!-- DIVISIONES -->
-<div class="row">
-    
-    {% for division in divisiones %}
-    <div class="col-md-3 mb-3">
-        <div class="card h-100">
-            <div class="card-body">
-                <h5 class="card-title text-center">
-                    División {{ division.numero }}
-                </h5>
-
-                <div class="border p-2 mb-2">
-                    📍 Ubicación:
-                    <strong>
-                        P{{ entrepano.estante.numero }}{{ entrepano.nivel }}{{ division.numero }}
-                    </strong>
-                </div>
-
-                {% if division.items %}
-                    {% for item in division.items %}
-                    <div class="border rounded p-2 mb-2">
-                        <b>Código:</b> {{ item.codigo }}<br>
-                        <b>Descripción:</b> {{ item.descripcion }}<br>
-                        <b>Máximo:</b> {{ item.maximo }} |
-                        <b>Mínimo:</b> {{ item.minimo }}
-
-                        
-                    </div>
-                    <form method="POST"
-                            action="{{ url_for('eliminar_item', item_id=item.id) }}"
-                            class="mt-2"
-                            onsubmit="return confirm('¿Eliminar este item?')">
-
-                            <button class="btn btn-outline-danger btn-sm">
-                                🗑 Eliminar item
-                            </button>
-                        </form>
-                {% endfor %}
-                {% else %}
-                    <p class="text-muted text-center">
-                        Sin items asignados
-                    </p>
-                {% endif %}
-            </div>
+    <div class="row">
+        <div class="col">
+            <input name="maximo" type="number" class="form-control" placeholder="Máximo" required>
+        </div>
+        <div class="col">
+            <input name="minimo" type="number" class="form-control" placeholder="Mínimo" required>
         </div>
     </div>
-    {% else %}
-        <p class="text-muted">No hay divisiones aún.</p>
+    
+    <div>
+    <select name="division" class="form-select" required>
+    {% for i in range(1, 16) %}
+        <option value="{{ i }}">{{ "%02d"|format(i) }}</option>
     {% endfor %}
+    </select>
+    </div>
+
+    <p class="mt-2 ubicacion">
+        📍 Ubicación: P{{ entrepano.estante.numero }}{{ entrepano.nivel }}X
+    </p>
+
+    <button class="btn btn-primary mt-2">Crear</button>
+</form>
+
+<!-- DIVISIONES -->
+<div class="row">
+{% for item in items %}
+<div class="col-md-3 col-6 mb-3">
+    <div class="card h-100 text-center">
+        <div class="card-body">
+            <h5>División {{ item.division }}</h5>
+
+            <p><b>Código:</b> {{ item.codigo }}</p>
+            <p><b>Máx:</b> {{ item.maximo }}</p>
+            <p><b>Mín:</b> {{ item.minimo }}</p>
+        </div>
+
+        <div class="card-footer d-flex gap-1">
+            <a href="{{ url_for('editar_item', item_id=item.id) }}"
+               class="btn btn-sm btn-outline-primary w-100">
+                ✏️ Editar
+            </a>
+        </div>
+        <div class="card-footer d-flex gap-1">
+            <form method="POST"
+                  action="{{ url_for('eliminar_item', item_id=item.id) }}"
+                  class="w-100">
+                <button class="btn btn-sm btn-outline-danger w-100">
+                    🗑️ Eliminar
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
+{% else %}
+<p class="text-muted">No hay items aún.</p>
+{% endfor %}
+
+
 
 
 </div>
-
-</body>
-</html>
+{% endblock %}

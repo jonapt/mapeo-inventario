@@ -19,24 +19,29 @@ class Entrepano(db.Model):
     __tablename__ = "entrepanos"
 
     id = db.Column(db.Integer, primary_key=True)
-    nivel = db.Column(db.String(1),nullable=False)
-    estante_id =db.Column(
+    nivel = db.Column(db.String(1), nullable=False)
+
+    estante_id = db.Column(
         db.Integer,
         db.ForeignKey("estantes.id"),
         nullable=False
     )
 
-    division = db.relationship(
-        "Division",
-        backref="entrepano",
+    items = db.relationship(
+        "Item",
+        back_populates="entrepano",
         cascade="all, delete-orphan"
     )
 
-class Division(db.Model):
-    __tablename__ = "divisiones"
+    
+class Item(db.Model):
+    __tablename__ = "items"
 
     id = db.Column(db.Integer, primary_key=True)
-    numero = db.Column(db.Integer, nullable=False)
+    codigo = db.Column(db.String(50), unique=True, nullable=False)
+    division = db.Column(db.Integer, nullable=False)
+    maximo = db.Column(db.Integer)
+    minimo = db.Column(db.Integer)
 
     entrepano_id = db.Column(
         db.Integer,
@@ -44,28 +49,12 @@ class Division(db.Model):
         nullable=False
     )
 
-    items = db.relationship(
-        "Item",
-        backref="division",
-        cascade="all, delete-orphan"
+    entrepano = db.relationship(
+        "Entrepano",
+        back_populates="items"
     )
 
 
-    
-class Item(db.Model):
-    __tablename__="items"
-
-    id = db.Column(db.Integer, primary_key=True)
-    codigo = db.Column(db.String(50),nullable=False)
-    descripcion = db.Column(db.String(250))
-    maximo=db.Column(db.Integer)
-    minimo=db.Column(db.Integer)
-
-    division_id=db.Column(
-        db.Integer,
-        db.ForeignKey("divisiones.id"),
-        nullable=False
-    )
 
     @property
     def ubicacion(self):

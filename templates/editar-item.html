@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4 class="mb-3">Editar item</h4>
+
+<form method="POST" class="card p-3">
+
+    <div class="mb-2">
+        <label>Código</label>
+        <input
+            name="codigo"
+            type="text"
+            maxlength="7"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            inputmode="numeric"
+            class="form-control"
+            value="{{ item.codigo }}"
+            required
+        >
+    </div>
+
+    <div class="mb-2">
+        <label>Máximo</label>
+        <input
+            type="text"
+            name="maximo"
+            maxlength="7"
+            inputmode="numeric"
+            pattern="[0-9]+"
+            class="form-control"
+            value="{{ item.maximo }}"
+            required
+        >
+    </div>
+
+    <div class="mb-2">
+        <label>Mínimo</label>
+        <input
+            type="text"
+            name="minimo"
+            maxlength="7"
+            inputmode="numeric"
+            pattern="[0-9]+"
+            class="form-control"
+            value="{{ item.minimo }}"
+            required
+        >
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-primary w-50">
+            Guardar
+        </button>
+
+        <a
+            href="{{ url_for('detalle_entrepano', entrepano_id=item.entrepano.id) }}"
+            class="btn btn-secondary w-50"
+        >
+            Cancelar
+        </a>
+    </div>
+
+</form>
+
+{% endblock %}

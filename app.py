@@ -1,14 +1,17 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file
-from models import db, Estante, Entrepano,Division,Item
-from sqlalchemy import func
+from flask import Flask, render_template, request, redirect, url_for, send_file, flash
+from models import db, Estante, Entrepano,Item
+from sqlalchemy import func 
 from flask_migrate import Migrate
 from io import BytesIO
 import pandas as pd
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
+from sqlalchemy.exc import IntegrityError
+
 
 app = Flask(__name__)
+app.secret_key = "inventario-super-secreto"
 NIVELES = ["A","B","C","D","E","F","G","H","J","K"]
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///inventario.db"
@@ -61,49 +64,18 @@ def detalle_estante(estante_id):
 def detalle_entrepano(entrepano_id):
     entrepano = Entrepano.query.get_or_404(entrepano_id)
 
-    if request.method == "POST":
-
-        # 1️⃣ calcular número de división
-        ultimo_numero = (
-            db.session.query(func.max(Division.numero))
-            .filter_by(entrepano_id=entrepano.id)
-            .scalar()
-        )
-        nuevo_numero = 1 if ultimo_numero is None else ultimo_numero + 1
-
-        # 2️⃣ crear división
-        division = Division(
-            numero=nuevo_numero,
-            entrepano_id=entrepano.id
-        )
-        db.session.add(division)
-        db.session.flush()  # 👈 NECESARIO para obtener division.id
-
-        # 3️⃣ crear item (ESTO ERA LO QUE FALLABA)
-        item = Item(
-            codigo=request.form["codigo"],
-            descripcion=request.form["descripcion"],
-            maximo=int(request.form["maximo"]),
-            minimo=int(request.form["minimo"]),
-            division_id=division.id
-        )
-
-        db.session.add(item)
-        db.session.commit()
-
-        return redirect(url_for("detalle_entrepano", entrepano_id=entrepano.id))
-
-    divisiones = (
-        Division.query
+    items = (
+        Item.query
         .filter_by(entrepano_id=entrepano.id)
-        .order_by(Division.numero)
+        .order_by(Item.division)
         .all()
     )
 
+
     return render_template(
-        "detalle-entrepano.html",
-        entrepano=entrepano,
-        divisiones=divisiones
+    "detalle-entrepano.html",
+    entrepano=entrepano,
+    items=items
     )
 
 
@@ -132,21 +104,76 @@ def eliminar_entrepano(entrepano_id):
 @app.route("/items/<int:item_id>/eliminar", methods=["POST"])
 def eliminar_item(item_id):
     item = Item.query.get_or_404(item_id)
-
-    division = item.division
-    entrepano_id = division.entrepano.id
-
+    entrepano_id = item.entrepano_id
 
     db.session.delete(item)
-
-
-    db.session.delete(division)
-
     db.session.commit()
 
-    return redirect(
-        url_for("detalle_entrepano", entrepano_id=entrepano_id)
+    flash("🗑️ Item eliminado", "warning")
+
+    return redirect(url_for("detalle_entrepano", entrepano_id=entrepano_id))
+
+
+@app.route("/entrepanos/<int:entrepano_id>/items/nuevo", methods=["POST"])
+def crear_item(entrepano_id):
+    entrepano = Entrepano.query.get_or_404(entrepano_id)
+
+    division = int(request.form["division"])
+
+    ultima_division = (
+        db.session.query(func.max(Item.division))
+        .filter(Item.entrepano_id == entrepano.id)
+        .scalar()
     )
+
+    division_esperada = 1 if ultima_division is None else ultima_division + 1
+
+    if division != division_esperada:
+        flash(
+            f"⚠️ La división debe ser consecutiva. Siguiente válida: {division_esperada}",
+            "danger"
+        )
+        return redirect(url_for("detalle_entrepano", entrepano_id=entrepano.id))
+
+    item = Item(
+        codigo=request.form["codigo"],
+        division=division,
+        maximo=int(request.form["maximo"]),
+        minimo=int(request.form["minimo"]),
+        entrepano_id=entrepano.id
+    )
+
+    db.session.add(item)
+    db.session.commit()
+
+    flash("✅ Item agregado correctamente", "success")
+
+    return redirect(url_for("detalle_entrepano", entrepano_id=entrepano.id))
+
+
+@app.route("/items/<int:item_id>/editar", methods=["GET", "POST"])
+def editar_item(item_id):
+    item = Item.query.get_or_404(item_id)
+
+    if request.method == "POST":
+        item.codigo = request.form["codigo"]
+        item.maximo = int(request.form["maximo"])
+        item.minimo = int(request.form["minimo"])
+
+        db.session.commit()
+
+        flash("✏️ Item actualizado", "success")
+
+        return redirect(
+            url_for(
+                "detalle_entrepano",
+                entrepano_id=item.entrepano.id   # ✅ AQUÍ ESTÁ LA CLAVE
+            )
+        )
+
+    return render_template("editar-item.html", item=item)
+
+
 
 
 @app.route("/exportar/excel")
@@ -248,6 +275,14 @@ def exportar_pdf():
         download_name="inventario_ubicaciones.pdf",
         as_attachment=True
     )
+
+def siguiente_division(entrepano_id):
+    ultima = (
+        db.session.query(db.func.max(Item.division))
+        .filter_by(entrepano_id=entrepano_id)
+        .scalar()
+    )
+    return 1 if ultima is None else ultima + 1
 
 if __name__ == "__main__":
     app.run(debug=True,host="0.0.0.0",port=5001)
