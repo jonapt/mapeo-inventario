@@ -4,4 +4,3 @@ flask-sqlalchemy
 flask-migrate
 openpyxl
 reportlab
-sqlite
