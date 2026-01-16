@@ -1,0 +1,64 @@
+/* ===== BASE ===== */
+body {
+    background-color: #f4f6f9;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    box-shadow: 0 2px 6px rgb(36, 45, 83);
+}
+
+/* ===== CARDS ===== */
+.card {
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 6px 14px rgba(0,0,0,.08);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12);
+}
+
+.card-title {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* ===== BOTONES ===== */
+.btn {
+    min-width: 110px;
+}
+
+.btn-sm {
+    min-width: 100%;
+}
+
+/* ===== BADGES ===== */
+.badge-count {
+    background: #3b414b;
+    color: white;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: .8rem;
+}
+
+/* ===== UBICACION ===== */
+.ubicacion {
+    font-weight: 600;
+    color: #198754;
+}
+
+/* ===== FORM ===== */
+input, textarea {
+    border-radius: 8px !important;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 576px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+}
