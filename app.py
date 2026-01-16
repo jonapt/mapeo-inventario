@@ -167,7 +167,7 @@ def editar_item(item_id):
         return redirect(
             url_for(
                 "detalle_entrepano",
-                entrepano_id=item.entrepano.id   # ✅ AQUÍ ESTÁ LA CLAVE
+                entrepano_id=item.entrepano.id
             )
         )
 
