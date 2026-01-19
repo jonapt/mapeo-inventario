@@ -3,16 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class Estante(db.Model):
-    __tablename__ = "estantes"
-
     id = db.Column(db.Integer, primary_key=True)
-    numero = db.Column(db.Integer, nullable=False, unique=True)
+    nombre = db.Column(db.String(50), nullable=False)
 
     entrepanos = db.relationship(
         "Entrepano",
         backref="estante",
         cascade="all, delete-orphan"
     )
+
+    @property
+    def total_entrepanos(self):
+        return len(self.entrepanos)
 
 
 class Entrepano(db.Model):
