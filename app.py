@@ -194,7 +194,6 @@ def exportar_excel():
             "Estante": estante.numero,
             "Entrepano": entrepano.nivel,
             "Division": division.numero,
-            "Descripcion": item.descripcion
         })
 
     df = pd.DataFrame(filas)
@@ -234,7 +233,6 @@ def exportar_pdf():
         "Estante",
         "Entrepano",
         "Division",
-        "Descripcion"
         
     ]]
 
