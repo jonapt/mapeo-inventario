@@ -8,6 +8,8 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from sqlalchemy.exc import IntegrityError
+import io
+from openpyxl import Workbook
 
 
 app = Flask(__name__)
@@ -45,6 +47,18 @@ def estantes():
 @app.route("/estantes/<int:estante_id>")
 def detalle_estante(estante_id):
     estante = Estante.query.get_or_404(estante_id)
+    from sqlalchemy import func
+
+    entrepanos = Entrepano.query.filter_by(estante_id=estante.id).all()
+
+    divisiones_por_entrepano = {
+        e.id: (
+            db.session.query(func.count(func.distinct(Item.division)))
+            .filter(Item.entrepano_id == e.id)
+            .scalar()
+        )
+        for e in entrepanos
+    }
 
     orden_niveles = NIVELES
 
@@ -57,8 +71,10 @@ def detalle_estante(estante_id):
     return render_template(
         "detalle-estante.html",
         estante=estante,
-        entrepanos = entrepanos_ordenados
+        entrepanos=entrepanos,
+        divisiones_por_entrepano=divisiones_por_entrepano
     )
+
 
 @app.route("/entrepanos/<int:entrepano_id>", methods=["GET", "POST"])
 def detalle_entrepano(entrepano_id):
@@ -181,37 +197,51 @@ def editar_item(item_id):
 
 @app.route("/exportar/excel")
 def exportar_excel():
-
-    filas = []
-
     items = Item.query.all()
 
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Inventario"
+
+    # Encabezados
+    ws.append([
+        "Código",
+        "Ubicación",
+        "Estante",
+        "Nivel",
+        "División",
+        "Máximo",
+        "Mínimo"
+    ])
+
     for item in items:
-        division = item.division
-        entrepano = division.entrepano
-        estante = entrepano.estante
+        ubicacion = (
+            f"P{item.entrepano.estante.numero}"
+            f"{item.entrepano.nivel}"
+            f"{item.division}"
+        )
 
-        filas.append({
-            "Codigo": item.codigo,
-            "Ubicacion": f"P{estante.numero}{entrepano.nivel}{division.numero}",
-            "Estante": estante.numero,
-            "Entrepano": entrepano.nivel,
-            "Division": division.numero,
-        })
+        ws.append([
+            item.codigo,
+            ubicacion,
+            item.entrepano.estante.numero,
+            item.entrepano.nivel,
+            item.division,
+            item.maximo,
+            item.minimo
+        ])
 
-    df = pd.DataFrame(filas)
-
-    output = BytesIO()
-    with pd.ExcelWriter(output, engine="openpyxl") as writer:
-        df.to_excel(writer, index=False, sheet_name="Inventario")
-
+    output = io.BytesIO()
+    wb.save(output)
     output.seek(0)
 
     return send_file(
         output,
-        download_name="inventario_ubicaciones.xlsx",
-        as_attachment=True
+        as_attachment=True,
+        download_name="inventario.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+
 
 @app.route("/exportar/pdf")
 def exportar_pdf():
@@ -242,18 +272,19 @@ def exportar_pdf():
     items = Item.query.all()
 
     for item in items:
-        division = item.division
-        entrepano = division.entrepano
-        estante = entrepano.estante
+        ubicacion = (
+            f"P{item.entrepano.estante.numero}"
+            f"{item.entrepano.nivel}"
+            f"{item.division}"
+        )
 
         data.append([
             item.codigo,
-            f"P{estante.numero}{entrepano.nivel}{division.numero}",
-            str(estante.numero),
-            entrepano.nivel,
-            str(division.numero),
-            item.descripcion or ""
+            ubicacion,
+            item.maximo,
+            item.minimo
         ])
+
 
     tabla = Table(data, repeatRows=1)
 
