@@ -15,9 +15,11 @@
                     Nivel {{ entrepano.nivel }}
                 </h5>
 
-                <p class="badge-count">
-                    {{ entrepano.division|length }} divisiones
-                </p>
+                <div class="text-muted small">
+                    Divisiones:
+                    {{ divisiones_por_entrepano.get(entrepano.id, 0) }}
+                </div>
+
             </div>
 
             <div class="card-footer d-grid gap-2">
