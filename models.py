@@ -53,7 +53,7 @@ class Item(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    codigo = db.Column(db.String(7), nullable=False, unique=True)
+    codigo = db.Column(db.String(7), nullable=True, unique=True)
     division = db.Column(db.Integer, nullable=False)
     maximo = db.Column(db.Integer, nullable=False)
     minimo = db.Column(db.Integer, nullable=False)
