@@ -137,7 +137,7 @@ def crear_item(entrepano_id):
     try:
         item = Item(
             codigo=request.form["codigo"],
-            division=int(request.form["division"]),
+            division=request.form["division"],
             maximo=int(request.form["maximo"]),
             minimo=int(request.form["minimo"]),
             entrepano_id=entrepano.id
