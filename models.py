@@ -2,9 +2,15 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
+# =========================
+# ESTANTE
+# =========================
 class Estante(db.Model):
+    __tablename__ = "estante"
+
     id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(50), nullable=False)
+    nombre = db.Column(db.String(50), nullable=False, unique=True)
 
     entrepanos = db.relationship(
         "Entrepano",
@@ -16,16 +22,18 @@ class Estante(db.Model):
     def total_entrepanos(self):
         return len(self.entrepanos)
 
-
+# =========================
+# ENTREPAÑO
+# =========================
 class Entrepano(db.Model):
     __tablename__ = "entrepanos"
 
     id = db.Column(db.Integer, primary_key=True)
-    nivel = db.Column(db.String(1), nullable=False)
+    nivel = db.Column(db.String(2), nullable=False)
 
     estante_id = db.Column(
         db.Integer,
-        db.ForeignKey("estantes.id"),
+        db.ForeignKey("estante.id"),
         nullable=False
     )
 
@@ -36,15 +44,17 @@ class Entrepano(db.Model):
     )
 
 
+
+# =========================
+# ITEM
+# =========================
 class Item(db.Model):
     __tablename__ = "items"
 
     id = db.Column(db.Integer, primary_key=True)
 
     codigo = db.Column(db.String(7), nullable=False, unique=True)
-
     division = db.Column(db.Integer, nullable=False)
-
     maximo = db.Column(db.Integer, nullable=False)
     minimo = db.Column(db.Integer, nullable=False)
 
@@ -54,6 +64,10 @@ class Item(db.Model):
         nullable=False
     )
 
-    __table_args__ = (
-        db.UniqueConstraint("entrepano_id", "division"),
-    )
+
+    @property
+    def ubicacion(self):
+        """
+        Formato 2 dígitos: 01, 02, ..., 15
+        """
+        return f"{self.division:02d}"
