@@ -63,7 +63,7 @@ def detalle_estante(estante_id):
     orden_niveles = NIVELES
 
     entrepanos_ordenados = sorted(
-        estante.entrepano,
+        estante.entrepanos,
         key=lambda e:  orden_niveles.index(e.nivel),
         reverse=False
     )
