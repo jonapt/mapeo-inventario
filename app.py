@@ -120,14 +120,17 @@ def eliminar_entrepano(entrepano_id):
 @app.route("/items/<int:item_id>/eliminar", methods=["POST"])
 def eliminar_item(item_id):
     item = Item.query.get_or_404(item_id)
-    entrepano_id = item.entrepano_id
+    entrepano_id = item.entrepano.id
 
     db.session.delete(item)
     db.session.commit()
 
     flash("🗑️ Item eliminado", "warning")
 
-    return redirect(url_for("detalle_entrepano", entrepano_id=entrepano_id))
+    return redirect(
+        url_for("detalle_entrepano", entrepano_id=entrepano_id)
+    )
+
 
 
 @app.route("/entrepanos/<int:entrepano_id>/items", methods=["POST"])
@@ -195,118 +198,80 @@ def editar_item(item_id):
 
 
 
+
+from openpyxl import Workbook
+
 @app.route("/exportar/excel")
 def exportar_excel():
-    items = Item.query.all()
-
     wb = Workbook()
     ws = wb.active
-    ws.title = "Inventario"
+    ws.title = "Ubicaciones"
 
-    # Encabezados
     ws.append([
-        "Código",
-        "Ubicación",
-        "Estante",
-        "Nivel",
-        "División",
-        "Máximo",
-        "Mínimo"
+        "Estante", "Nivel", "División",
+        "Código", "Máximo", "Mínimo", "Ubicación"
     ])
 
+    items = Item.query.all()
+
     for item in items:
+        division_fmt = f"{item.division:02d}"
         ubicacion = (
             f"P{item.entrepano.estante.numero}"
             f"{item.entrepano.nivel}"
-            f"{item.division}"
+            f"{division_fmt}"
         )
 
         ws.append([
-            item.codigo,
-            ubicacion,
             item.entrepano.estante.numero,
             item.entrepano.nivel,
-            item.division,
+            division_fmt,
+            item.codigo,
             item.maximo,
-            item.minimo
+            item.minimo,
+            ubicacion
         ])
 
-    output = io.BytesIO()
-    wb.save(output)
-    output.seek(0)
+    wb.save("inventario.xlsx")
+    return send_file("inventario.xlsx", as_attachment=True)
 
-    return send_file(
-        output,
-        as_attachment=True,
-        download_name="inventario.xlsx",
-        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
 
+
+from reportlab.platypus import SimpleDocTemplate, Table
 
 @app.route("/exportar/pdf")
 def exportar_pdf():
-
-    buffer = BytesIO()
-
-    doc = SimpleDocTemplate(
-        buffer,
-        pagesize=A4,
-        rightMargin=30,
-        leftMargin=30,
-        topMargin=30,
-        bottomMargin=30
-    )
-
-    elementos = []
-
-    # Encabezados
-    data = [[
-        "Codigo",
-        "Ubicacion",
-        "Estante",
-        "Entrepano",
-        "Division",
-        
-    ]]
-
     items = Item.query.all()
 
+    data = [[
+        "Estante", "Nivel", "División",
+        "Código", "Máximo", "Mínimo", "Ubicación"
+    ]]
+
     for item in items:
+        division_fmt = f"{item.division:02d}"
         ubicacion = (
             f"P{item.entrepano.estante.numero}"
             f"{item.entrepano.nivel}"
-            f"{item.division}"
+            f"{division_fmt}"
         )
 
         data.append([
+            item.entrepano.estante.numero,
+            item.entrepano.nivel,
+            division_fmt,
             item.codigo,
-            ubicacion,
             item.maximo,
-            item.minimo
+            item.minimo,
+            ubicacion
         ])
 
+    doc = SimpleDocTemplate("inventario.pdf")
+    table = Table(data)
+    doc.build([table])
 
-    tabla = Table(data, repeatRows=1)
+    return send_file("inventario.pdf", as_attachment=True)
 
-    tabla.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.grey),
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
-        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-        ("GRID", (0, 0), (-1, -1), 0.5, colors.black),
-        ("FONT", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("BOTTOMPADDING", (0, 0), (-1, 0), 10),
-    ]))
-
-    elementos.append(tabla)
-    doc.build(elementos)
-
-    buffer.seek(0)
-
-    return send_file(
-        buffer,
-        download_name="inventario_ubicaciones.pdf",
-        as_attachment=True
-    )
 
 def siguiente_division(entrepano_id):
     ultima = (
