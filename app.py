@@ -114,29 +114,20 @@ def eliminar_item(item_id):
     return redirect(url_for("detalle_entrepano", entrepano_id=entrepano_id))
 
 
-@app.route("/entrepano/<int:entrepano_id>/items/nuevo", methods=["POST"])
+@app.route("/entrepanos/<int:entrepano_id>/items", methods=["POST"])
 def crear_item(entrepano_id):
-
-    codigo = request.form["codigo"]
-    division = int(request.form["division"])
-    maximo = int(request.form["maximo"])
-    minimo = int(request.form["minimo"])
-
-    nuevo_item = Item(
-        codigo=codigo,
-        division=division,
-        maximo=maximo,
-        minimo=minimo,
-        entrepano_id=entrepano_id
-    )
-    existe = Item.query.filter_by(codigo=codigo).first()
-    if existe:
-        flash("⚠️ Código ya registrado", "warning")
-        return redirect(...)
-
+    entrepano = Entrepano.query.get_or_404(entrepano_id)
 
     try:
-        db.session.add(nuevo_item)
+        item = Item(
+            codigo=request.form["codigo"],
+            division=int(request.form["division"]),
+            maximo=int(request.form["maximo"]),
+            minimo=int(request.form["minimo"]),
+            entrepano_id=entrepano.id
+        )
+
+        db.session.add(item)
         db.session.commit()
 
         flash("✅ Item creado correctamente", "success")
@@ -144,10 +135,21 @@ def crear_item(entrepano_id):
     except IntegrityError:
         db.session.rollback()
 
-        flash("⚠️ Ya existe un item con ese código", "danger")
+        # 🔥 BUSCAR DÓNDE ESTÁ ESE CÓDIGO
+        existente = Item.query.filter_by(
+            codigo=request.form["codigo"]
+        ).first()
+
+        flash(
+            f"⚠️ El código ya existe en "
+            f"Estante {existente.entrepano.estante.numero} "
+            f"Nivel {existente.entrepano.nivel} "
+            f"División {existente.division}",
+            "danger"
+        )
 
     return redirect(
-        url_for("detalle_entrepano", entrepano_id=entrepano_id)
+        url_for("detalle_entrepano", entrepano_id=entrepano.id)
     )
 
 
