@@ -2,8 +2,15 @@
 {% block title %}Detalle Estante{% endblock %}
 
 {% block content %}
+<a
+    href="{{ url_for('estantes') }}"
+    class="btn btn-outline-secondary mb-3"
+>
+    ⬅️ Volver a pagina principal
+</a>
+
 <h3 class="mb-4">
-    Estante {{ estante.numero }}
+    Estante {{ estante.nombre }}
 </h3>
 
 <div class="row">

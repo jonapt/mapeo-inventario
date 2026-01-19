@@ -28,7 +28,7 @@ def estantes():
         total = int(request.form["total_entrepanos"])
 
         estante = Estante(
-            nombre=f"P{numero}"
+            nombre=f"{numero}"
         )
         db.session.add(estante)
         db.session.flush()  # obtiene estante.id
@@ -136,39 +136,60 @@ def eliminar_item(item_id):
 
 
 
-@app.route("/entrepanos/<int:entrepano_id>/items", methods=["POST"])
+from sqlalchemy.exc import IntegrityError
+
+@app.route("/items/crear/<int:entrepano_id>", methods=["POST"])
 def crear_item(entrepano_id):
     entrepano = Entrepano.query.get_or_404(entrepano_id)
 
-    try:
-        item = Item(
-            codigo=request.form["codigo"],
-            division=request.form["division"],
-            maximo=int(request.form["maximo"]),
-            minimo=int(request.form["minimo"]),
-            entrepano_id=entrepano.id
+    codigo_raw = request.form.get("codigo", "").strip()
+
+    # 👇 convertir vacío en None
+    codigo = codigo_raw if codigo_raw else None
+
+    maximo = int(request.form["maximo"])
+    minimo = int(request.form["minimo"])
+    division = int(request.form["division"])
+
+
+    # 🔎 SOLO validar si el código NO es NULL
+    if codigo is not None:
+        existente = Item.query.filter_by(codigo=codigo).first()
+        if existente:
+            flash(
+                f"⚠️ El código ya existe en "
+                f"Estante {existente.entrepano.estante.nombre} "
+                f"Nivel {existente.entrepano.nivel} "
+                f"División {existente.division:02d}",
+                "danger"
+            )
+            return redirect(
+                url_for("detalle_entrepano", entrepano_id=entrepano.id)
+            )
+
+    if maximo < minimo:
+        flash("⚠️ El valor máximo no puede ser menor que el mínimo", "danger")
+        return redirect(
+            url_for("detalle_entrepano", entrepano_id=entrepano_id)
         )
 
+    # ✅ Crear item
+    item = Item(
+        codigo=codigo,
+        division=division,
+        maximo=maximo,
+        minimo=minimo,
+        entrepano_id=entrepano.id
+    )
+
+    try:
         db.session.add(item)
         db.session.commit()
-
         flash("✅ Item creado correctamente", "success")
 
     except IntegrityError:
         db.session.rollback()
-
-        # 🔥 BUSCAR DÓNDE ESTÁ ESE CÓDIGO
-        existente = Item.query.filter_by(
-            codigo=request.form["codigo"]
-        ).first()
-
-        flash(
-            f"⚠️ El código ya existe en "
-            f"Estante {existente.entrepano.estante.nombre} "
-            f"Nivel {existente.entrepano.nivel} "
-            f"División {existente.division}",
-            "danger"
-        )
+        flash("❌ Error inesperado al guardar el item", "danger")
 
     return redirect(
         url_for("detalle_entrepano", entrepano_id=entrepano.id)
@@ -176,46 +197,65 @@ def crear_item(entrepano_id):
 
 
 
+
 from sqlalchemy.exc import IntegrityError
 
-@app.route("/items/<int:item_id>/editar", methods=["GET", "POST"])
+@app.route("/item/<int:item_id>/editar", methods=["GET", "POST"])
 def editar_item(item_id):
     item = Item.query.get_or_404(item_id)
 
     if request.method == "POST":
-        item.codigo = request.form["codigo"]
-        item.maximo = int(request.form["maximo"])
-        item.minimo = int(request.form["minimo"])
+        codigo = request.form["codigo"].strip() or None
+        division = request.form["division"].strip()
+        maximo = int(request.form.get("maximo"))
+        minimo = int(request.form.get("minimo"))
+
+        if maximo < minimo:
+            flash("⚠️ El valor máximo no puede ser menor que el mínimo", "danger")
+            return redirect(
+                url_for("editar_item", item_id=item.id)
+            )
+            
+        item.division = division
+        item.codigo = codigo
+        item.maximo = maximo
+        item.minimo = minimo
 
         try:
             db.session.commit()
-            flash("✏️ Item actualizado correctamente", "success")
-
+            flash("✅ Item actualizado correctamente", "success")
             return redirect(
-                url_for("detalle_entrepano", entrepano_id=item.entrepano_id)
+                url_for(
+                    "detalle_entrepano",
+                    entrepano_id=item.entrepano.id
+                )
             )
 
         except IntegrityError:
             db.session.rollback()
 
-            # Buscar dónde está el código duplicado
-            existente = Item.query.filter_by(codigo=item.codigo).first()
-
-            if existente:
-                ubicacion = (
-                    f"P{existente.entrepano.estante.nombre}"
-                    f"{existente.entrepano.nivel}"
-                    f"{str(existente.division).zfill(2)}"
-                )
+            if codigo:
+                existente = Item.query.filter(
+                    Item.codigo == codigo,
+                    Item.id != item.id
+                ).first()
 
                 flash(
-                    f"⚠️ El código ya existe en la ubicación {ubicacion}",
+                    f"⚠️ El código ya existe en "
+                    f"Estante {existente.entrepano.estante.nombre} "
+                    f"Nivel {existente.entrepano.nivel} "
+                    f"División {existente.division}",
                     "danger"
                 )
             else:
-                flash("⚠️ El código ya existe", "danger")
+                flash(
+                    "❌ Error al guardar el item",
+                    "danger"
+                )
 
     return render_template("editar-item.html", item=item)
+
+
 
 
 
@@ -316,4 +356,4 @@ def siguiente_division(entrepano_id):
     return 1 if ultima is None else ultima + 1
 
 if __name__ == "__main__":
-    app.run(debug=False,host="0.0.0.0",port=5001)
+    app.run(debug=True,host="0.0.0.0",port=5001)

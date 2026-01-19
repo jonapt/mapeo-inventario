@@ -1,65 +1,74 @@
 {% extends "base.html" %}
+
 {% block content %}
+<div class="container mt-4">
+    <h3>✏️ Editar Item</h3>
 
-<h4 class="mb-3">Editar item</h4>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
 
-<form method="POST" class="card p-3">
+    <form method="POST" class="card p-3">
 
-    <div class="mb-2">
-        <label>Código</label>
-        <input
-            name="codigo"
-            type="text"
-            maxlength="7"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-            inputmode="numeric"
-            class="form-control"
-            value="{{ item.codigo }}"
-            required
-        >
-    </div>
+        <!-- CÓDIGO -->
+        <div class="mb-3">
+            <label class="form-label">Código</label>
+            <input
+                type="text"
+                name="codigo"
+                class="form-control"
+                value="{{ item.codigo or '' }}"
+                placeholder="Ubicación vacía"
+            >
+        </div>
 
-    <div class="mb-2">
-        <label>Máximo</label>
-        <input
-            type="text"
-            name="maximo"
-            maxlength="7"
-            inputmode="numeric"
-            pattern="[0-9]+"
-            class="form-control"
-            value="{{ item.maximo }}"
-            required
-        >
-    </div>
+        <!-- DIVISIÓN -->
+        <div class="mb-3">
+            <label class="form-label">División actual: <b>{{ "%02d"|format(item.division) }}</b></label>
+            <select name="division" class="form-select" required>
+                {% for i in range(1, 16) %}
+                    <option value="{{ i }}">{{ "%02d"|format(i) }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div class="mb-2">
-        <label>Mínimo</label>
-        <input
-            type="text"
-            name="minimo"
-            maxlength="7"
-            inputmode="numeric"
-            pattern="[0-9]+"
-            class="form-control"
-            value="{{ item.minimo }}"
-            required
-        >
-    </div>
+        <!-- MÁXIMO -->
+        <div class="mb-3">
+            <label class="form-label">Cant. Máxima</label>
+            <input
+                type="number"
+                name="maximo"
+                class="form-control"
+                value="{{ item.maximo }}"
+                required
+            >
+        </div>
 
-    <div class="d-flex gap-2 mt-3">
-        <button class="btn btn-primary w-50">
-            Guardar
-        </button>
+        <!-- MÍNIMO -->
+        <div class="mb-3">
+            <label class="form-label">Cant. Mínima</label>
+            <input
+                type="number"
+                name="minimo"
+                class="form-control"
+                value="{{ item.minimo }}"
+                required
+            >
+        </div>
 
-        <a
-            href="{{ url_for('detalle_entrepano', entrepano_id=item.entrepano.id) }}"
-            class="btn btn-secondary w-50"
-        >
-            Cancelar
-        </a>
-    </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary w-50">💾 Guardar</button>
 
-</form>
+            <a
+                href="{{ url_for('detalle_entrepano', entrepano_id=item.entrepano.id) }}"
+                class="btn btn-outline-secondary w-50"
+            >
+                ⬅️ Volver
+            </a>
+        </div>
 
+    </form>
+</div>
 {% endblock %}

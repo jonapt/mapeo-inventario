@@ -2,8 +2,15 @@
 {% block title %}Detalle Entrepano{% endblock %}
 
 {% block content %}
+<a
+    href="{{ url_for('detalle_estante', estante_id=entrepano.estante.id) }}"
+    class="btn btn-outline-secondary mb-3"
+>
+    ⬅️ Volver al entrepaños
+</a>
+
 <h4 class="mb-3">
-    Estante {{ entrepano.estante.numero }} · Nivel {{ entrepano.nivel }}
+    Estante {{ entrepano.estante.nombre }} · Nivel {{ entrepano.nivel }}
 </h4>
 
 <!-- FORM ITEM -->
@@ -20,11 +27,11 @@
 
     <div class="row">
         <div class="col">
-            <p>maximo</p>
+            <p> Cant. Máxima</p>
             <input name="maximo" type="number" class="form-control" placeholder="Máximo" required>
         </div>
         <div class="col">
-            <p>minimo</p>
+            <p>Cant. Mínima</p>
             <input name="minimo" type="number" class="form-control" placeholder="Mínimo" required>
         </div>
     </div>
@@ -32,14 +39,14 @@
     <div>
         <p>División</p>
     <select name="division" class="form-select" required>
-    {% for i in range(1, 16) %}
+    {% for i in range(1, 25) %}
         <option value="{{ i }}">{{ "%02d"|format(i) }}</option>
     {% endfor %}
     </select>
     </div>
 
     <p class="mt-2 ubicacion">
-        📍 Ubicación: P{{ entrepano.estante.numero }}{{ entrepano.nivel }}X
+        Ubicación relativa: P{{ entrepano.estante.nombre }}{{ entrepano.nivel }}X
     </p>
 
     <button class="btn btn-primary mt-2">Crear</button>
@@ -53,9 +60,7 @@
         <div class="border p-2 mb-2 text-center">
             📍 Ubicación:
             <strong>
-                P{{ item.entrepano.estante.numero }}
-                {{ item.entrepano.nivel }}
-                {{ "%02d"|format(item.division) }}
+                P{{ item.entrepano.estante.nombre }}{{ item.entrepano.nivel }}{{ "%02d"|format(item.division) }}
             </strong>
         </div>
 
