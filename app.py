@@ -21,28 +21,31 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
-@app.route("/",methods=["GET","POST"])
+@app.route("/", methods=["GET", "POST"])
 def estantes():
     if request.method == "POST":
-        numero = request.form["numero"]
+        numero = request.form["numero"]      # ej: 1
         total = int(request.form["total_entrepanos"])
+
         estante = Estante(
-            numero=numero,
-            total_entrepanos=total
+            nombre=f"P{numero}"
         )
         db.session.add(estante)
-        db.session.flush()
+        db.session.flush()  # obtiene estante.id
 
         for nivel in NIVELES[:total]:
-            entrepano=Entrepano(
+            entrepano = Entrepano(
                 nivel=nivel,
                 estante_id=estante.id
             )
             db.session.add(entrepano)
+
         db.session.commit()
         return redirect(url_for("estantes"))
-    estantes = Estante.query.order_by(Estante.numero).all()
+
+    estantes = Estante.query.order_by(Estante.id).all()
     return render_template("estantes.html", estantes=estantes)
+
 
 @app.route("/estantes/<int:estante_id>")
 def detalle_estante(estante_id):
@@ -161,7 +164,7 @@ def crear_item(entrepano_id):
 
         flash(
             f"⚠️ El código ya existe en "
-            f"Estante {existente.entrepano.estante.numero} "
+            f"Estante {existente.entrepano.estante.nombre} "
             f"Nivel {existente.entrepano.nivel} "
             f"División {existente.division}",
             "danger"
@@ -173,6 +176,8 @@ def crear_item(entrepano_id):
 
 
 
+from sqlalchemy.exc import IntegrityError
+
 @app.route("/items/<int:item_id>/editar", methods=["GET", "POST"])
 def editar_item(item_id):
     item = Item.query.get_or_404(item_id)
@@ -182,16 +187,33 @@ def editar_item(item_id):
         item.maximo = int(request.form["maximo"])
         item.minimo = int(request.form["minimo"])
 
-        db.session.commit()
+        try:
+            db.session.commit()
+            flash("✏️ Item actualizado correctamente", "success")
 
-        flash("✏️ Item actualizado", "success")
-
-        return redirect(
-            url_for(
-                "detalle_entrepano",
-                entrepano_id=item.entrepano.id
+            return redirect(
+                url_for("detalle_entrepano", entrepano_id=item.entrepano_id)
             )
-        )
+
+        except IntegrityError:
+            db.session.rollback()
+
+            # Buscar dónde está el código duplicado
+            existente = Item.query.filter_by(codigo=item.codigo).first()
+
+            if existente:
+                ubicacion = (
+                    f"P{existente.entrepano.estante.nombre}"
+                    f"{existente.entrepano.nivel}"
+                    f"{str(existente.division).zfill(2)}"
+                )
+
+                flash(
+                    f"⚠️ El código ya existe en la ubicación {ubicacion}",
+                    "danger"
+                )
+            else:
+                flash("⚠️ El código ya existe", "danger")
 
     return render_template("editar-item.html", item=item)
 
@@ -205,72 +227,84 @@ from openpyxl import Workbook
 def exportar_excel():
     wb = Workbook()
     ws = wb.active
-    ws.title = "Ubicaciones"
+    ws.title = "Inventario"
 
-    ws.append([
-        "Estante", "Nivel", "División",
-        "Código", "Máximo", "Mínimo", "Ubicación"
-    ])
+    ws.append(["Código", "Ubicación", "Estante", "Entrepaño", "División"])
 
-    items = Item.query.all()
+    items = Item.query.order_by(Item.codigo).all()
 
     for item in items:
-        division_fmt = f"{item.division:02d}"
-        ubicacion = (
-            f"P{item.entrepano.estante.numero}"
-            f"{item.entrepano.nivel}"
-            f"{division_fmt}"
-        )
+        division_str = str(item.division).zfill(2)
+        ubicacion = f"P{item.entrepano.estante.nombre}{item.entrepano.nivel}{division_str}"
 
         ws.append([
-            item.entrepano.estante.numero,
-            item.entrepano.nivel,
-            division_fmt,
             item.codigo,
-            item.maximo,
-            item.minimo,
-            ubicacion
+            ubicacion,
+            item.entrepano.estante.nombre,
+            item.entrepano.nivel,
+            division_str
         ])
 
-    wb.save("inventario.xlsx")
-    return send_file("inventario.xlsx", as_attachment=True)
+    file_stream = BytesIO()
+    wb.save(file_stream)
+    file_stream.seek(0)
+
+    return send_file(
+        file_stream,
+        as_attachment=True,
+        download_name="inventario_ubicaciones.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
 
 
 
 from reportlab.platypus import SimpleDocTemplate, Table
+from reportlab.lib.pagesizes import letter
+
 
 @app.route("/exportar/pdf")
 def exportar_pdf():
-    items = Item.query.all()
+    buffer = BytesIO()
 
-    data = [[
-        "Estante", "Nivel", "División",
-        "Código", "Máximo", "Mínimo", "Ubicación"
-    ]]
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+
+    data = [
+        ["Código", "Ubicación", "Estante", "Entrepaño", "División"]
+    ]
+
+    items = Item.query.order_by(Item.codigo).all()
 
     for item in items:
-        division_fmt = f"{item.division:02d}"
-        ubicacion = (
-            f"P{item.entrepano.estante.numero}"
-            f"{item.entrepano.nivel}"
-            f"{division_fmt}"
-        )
+        division_str = str(item.division).zfill(2)
+        ubicacion = f"P{item.entrepano.estante.nombre}{item.entrepano.nivel}{division_str}"
 
         data.append([
-            item.entrepano.estante.numero,
-            item.entrepano.nivel,
-            division_fmt,
             item.codigo,
-            item.maximo,
-            item.minimo,
-            ubicacion
+            ubicacion,
+            item.entrepano.estante.nombre,
+            item.entrepano.nivel,
+            division_str
         ])
 
-    doc = SimpleDocTemplate("inventario.pdf")
-    table = Table(data)
-    doc.build([table])
+    table = Table(data, repeatRows=1)
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), colors.grey),
+        ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),
+        ("GRID", (0, 0), (-1, -1), 1, colors.black),
+        ("ALIGN", (1, 1), (-1, -1), "CENTER"),
+    ]))
 
-    return send_file("inventario.pdf", as_attachment=True)
+    doc.build([table])
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        as_attachment=True,
+        download_name="inventario_ubicaciones.pdf",
+        mimetype="application/pdf"
+    )
+
 
 
 def siguiente_division(entrepano_id):
