@@ -10,20 +10,27 @@
  
 <form method="POST" class="card p-3 mb-4" action="{{ url_for('crear_item', entrepano_id=entrepano.id) }}">
     <h6 class="mb-3">➕ Nueva División</h6>
-
-    <input name="codigo"  type="text" maxlength="7" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric" class="form-control mb-2" placeholder="Código" required>
+    <p>codigo</p>
+    <input name="codigo"  
+        type="text" 
+        maxlength="7" 
+        oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
+        inputmode="numeric" class="form-control mb-2" placeholder="Opcional">
    
 
     <div class="row">
         <div class="col">
+            <p>maximo</p>
             <input name="maximo" type="number" class="form-control" placeholder="Máximo" required>
         </div>
         <div class="col">
+            <p>minimo</p>
             <input name="minimo" type="number" class="form-control" placeholder="Mínimo" required>
         </div>
     </div>
     
     <div>
+        <p>División</p>
     <select name="division" class="form-select" required>
     {% for i in range(1, 16) %}
         <option value="{{ i }}">{{ "%02d"|format(i) }}</option>
