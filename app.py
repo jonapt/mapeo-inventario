@@ -114,41 +114,42 @@ def eliminar_item(item_id):
     return redirect(url_for("detalle_entrepano", entrepano_id=entrepano_id))
 
 
-@app.route("/entrepanos/<int:entrepano_id>/items/nuevo", methods=["POST"])
+@app.route("/entrepano/<int:entrepano_id>/items/nuevo", methods=["POST"])
 def crear_item(entrepano_id):
-    entrepano = Entrepano.query.get_or_404(entrepano_id)
 
+    codigo = request.form["codigo"]
     division = int(request.form["division"])
+    maximo = int(request.form["maximo"])
+    minimo = int(request.form["minimo"])
 
-    ultima_division = (
-        db.session.query(func.max(Item.division))
-        .filter(Item.entrepano_id == entrepano.id)
-        .scalar()
-    )
-
-    division_esperada = 1 if ultima_division is None else ultima_division + 1
-
-    if division != division_esperada:
-        flash(
-            f"⚠️ La división debe ser consecutiva. Siguiente válida: {division_esperada}",
-            "danger"
-        )
-        return redirect(url_for("detalle_entrepano", entrepano_id=entrepano.id))
-
-    item = Item(
-        codigo=request.form["codigo"],
+    nuevo_item = Item(
+        codigo=codigo,
         division=division,
-        maximo=int(request.form["maximo"]),
-        minimo=int(request.form["minimo"]),
-        entrepano_id=entrepano.id
+        maximo=maximo,
+        minimo=minimo,
+        entrepano_id=entrepano_id
+    )
+    existe = Item.query.filter_by(codigo=codigo).first()
+    if existe:
+        flash("⚠️ Código ya registrado", "warning")
+        return redirect(...)
+
+
+    try:
+        db.session.add(nuevo_item)
+        db.session.commit()
+
+        flash("✅ Item creado correctamente", "success")
+
+    except IntegrityError:
+        db.session.rollback()
+
+        flash("⚠️ Ya existe un item con ese código", "danger")
+
+    return redirect(
+        url_for("detalle_entrepano", entrepano_id=entrepano_id)
     )
 
-    db.session.add(item)
-    db.session.commit()
-
-    flash("✅ Item agregado correctamente", "success")
-
-    return redirect(url_for("detalle_entrepano", entrepano_id=entrepano.id))
 
 
 @app.route("/items/<int:item_id>/editar", methods=["GET", "POST"])
