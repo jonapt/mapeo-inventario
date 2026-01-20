@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, flash
+from flask import Flask, render_template, request, redirect, url_for, send_file, flash, session
 from models import db, Estante, Entrepano,Item
 from sqlalchemy import func 
 from flask_migrate import Migrate
@@ -18,20 +18,54 @@ NIVELES = ["A","B","C","D","E","F","G","H","J","K"]
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///inventario.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config["SECRET_KEY"] = "inventario-super-secreto-123"
 db.init_app(app)
 migrate = Migrate(app, db)
 
+def generar_ubicacion(item):
+    return (
+        f"{item.entrepano.estante.tipo_estante}"
+        f"{item.entrepano.estante.nombre}"
+        f"{item.entrepano.nivel}"
+        f"{item.division:02d}"
+    )
+
+@app.context_processor
+def utilidades():
+    return dict(generar_ubicacion=generar_ubicacion)
+
+from datetime import datetime
+
+def nombre_exportacion(base, extension):
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    return f"{base}_{timestamp}.{extension}"
+
+def siguiente_division(entrepano_id):
+    ultima = (
+        db.session.query(db.func.max(Item.division))
+        .filter_by(entrepano_id=entrepano_id)
+        .scalar()
+    )
+    return 1 if ultima is None else ultima + 1
+
 @app.route("/", methods=["GET", "POST"])
 def estantes():
+
+    TIPOS = ["P", "M", "R", "A"]
+
     if request.method == "POST":
-        numero = request.form["numero"]      # ej: 1
+        nombre = request.form["nombre"]
         total = int(request.form["total_entrepanos"])
+        tipo_estante= request.form["tipo"]
+
+        session["tipo_estante"] = tipo_estante
 
         estante = Estante(
-            nombre=f"{numero}"
+            nombre=nombre,
+            tipo_estante=tipo_estante
         )
         db.session.add(estante)
-        db.session.flush()  # obtiene estante.id
+        db.session.flush()
 
         for nivel in NIVELES[:total]:
             entrepano = Entrepano(
@@ -41,10 +75,21 @@ def estantes():
             db.session.add(entrepano)
 
         db.session.commit()
+        flash("✅ Estante creado correctamente", "success")
         return redirect(url_for("estantes"))
 
+
+    tipo_actual = session.get("tipo_estante", "P")
+
     estantes = Estante.query.order_by(Estante.id).all()
-    return render_template("estantes.html", estantes=estantes)
+
+    return render_template(
+        "estantes.html",
+        estantes=estantes,
+        tipos=TIPOS,
+        tipo_actual=tipo_actual
+    )
+
 
 
 @app.route("/estantes/<int:estante_id>")
@@ -215,7 +260,7 @@ def editar_item(item_id):
             return redirect(
                 url_for("editar_item", item_id=item.id)
             )
-            
+
         item.division = division
         item.codigo = codigo
         item.maximo = maximo
@@ -269,17 +314,30 @@ def exportar_excel():
     ws = wb.active
     ws.title = "Inventario"
 
-    ws.append(["Código", "Ubicación", "Estante", "Entrepaño", "División"])
+    ws.append(["Código", "Ubicación", "Tipo estante","Estante", "Entrepaño", "División"])
 
-    items = Item.query.order_by(Item.codigo).all()
+    items = (
+        Item.query
+        .join(Entrepano)
+        .join(Estante)
+        .order_by(
+            Estante.tipo_estante,
+            Estante.nombre,
+            Entrepano.nivel,
+            Item.division
+        )
+        .all()
+    )
 
     for item in items:
         division_str = str(item.division).zfill(2)
-        ubicacion = f"P{item.entrepano.estante.nombre}{item.entrepano.nivel}{division_str}"
+        ubicacion = generar_ubicacion(item)
+
 
         ws.append([
             item.codigo,
             ubicacion,
+            item.entrepano.estante.tipo_estante,
             item.entrepano.estante.nombre,
             item.entrepano.nivel,
             division_str
@@ -292,7 +350,7 @@ def exportar_excel():
     return send_file(
         file_stream,
         as_attachment=True,
-        download_name="inventario_ubicaciones.xlsx",
+        download_name=nombre_exportacion("mapeo","xlsx"),
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
 
@@ -310,18 +368,30 @@ def exportar_pdf():
     doc = SimpleDocTemplate(buffer, pagesize=letter)
 
     data = [
-        ["Código", "Ubicación", "Estante", "Entrepaño", "División"]
+        ["Código", "Ubicación","Tipo estante","Estante", "Entrepaño", "División"]
     ]
 
-    items = Item.query.order_by(Item.codigo).all()
+    items = (
+        Item.query
+        .join(Entrepano)
+        .join(Estante)
+        .order_by(
+            Estante.tipo_estante,
+            Estante.nombre,
+            Entrepano.nivel,
+            Item.division
+        )
+        .all()
+    )
 
     for item in items:
         division_str = str(item.division).zfill(2)
-        ubicacion = f"P{item.entrepano.estante.nombre}{item.entrepano.nivel}{division_str}"
+        ubicacion = generar_ubicacion(item)
 
         data.append([
             item.codigo,
             ubicacion,
+            item.entrepano.estante.tipo_estante,
             item.entrepano.estante.nombre,
             item.entrepano.nivel,
             division_str
@@ -341,19 +411,11 @@ def exportar_pdf():
     return send_file(
         buffer,
         as_attachment=True,
-        download_name="inventario_ubicaciones.pdf",
+        download_name=nombre_exportacion("mapeo","pdf"),
         mimetype="application/pdf"
     )
 
 
 
-def siguiente_division(entrepano_id):
-    ultima = (
-        db.session.query(db.func.max(Item.division))
-        .filter_by(entrepano_id=entrepano_id)
-        .scalar()
-    )
-    return 1 if ultima is None else ultima + 1
-
 if __name__ == "__main__":
-    app.run(debug=True,host="0.0.0.0",port=5001)
+    app.run(debug=False,host="0.0.0.0",port=5001)

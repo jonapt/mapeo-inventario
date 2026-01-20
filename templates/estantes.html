@@ -4,21 +4,49 @@
 {% block content %}
 <h3 class="mb-4">Estantes</h3>
 <div>
-    <form method="POST" class="row g-3 mb-5">
-        <div class="col-md-4">
-            <label class="form-label">Número de estante</label>
-            <input type="number" name="numero" class="form-control" required>
-        </div>
+    <form method="POST" class="card p-3 mb-4">
 
-        <div class="col-md-4">
-            <label class="form-label">Cantidad de entrepaños</label>
-            <input type="number" name="total_entrepanos" min="1" max="10" class="form-control" required>
-        </div>
+    <div class="mb-2">
+        <label>Número de estante</label>
+        <input
+            type="text"
+            name="nombre"
+            class="form-control"
+            required
+        >
+    </div>
 
-        <div class="col-md-4 d-flex align-items-end">
-            <button class="btn btn-primary w-100">Crear nuevo estante</button>
-        </div>
-    </form>
+    <div class="mb-2">
+        <label>Cantidad de entrepaños</label>
+        <input
+            type="number"
+            name="total_entrepanos"
+            min="1"
+            max="15"
+            class="form-control"
+            required
+        >
+    </div>
+
+    <div class="mb-3">
+        <label>Tipo de estante</label>
+        <select name="tipo" class="form-select" required>
+            {% for t in tipos %}
+                <option value="{{ t }}"
+                    {% if t == tipo_actual %}selected{% endif %}
+                >
+                    {{ t }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button class="btn btn-primary w-100">
+        ➕ Crear estante
+    </button>
+
+</form>
+
 </div>
 
 <div class="row">

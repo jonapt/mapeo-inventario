@@ -3,15 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 
-# =========================
-# ESTANTE
-# =========================
+
 class Estante(db.Model):
     __tablename__ = "estante"
 
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50), nullable=False, unique=True)
-
+    tipo_estante = db.Column(db.String(1),nullable=False,server_default="P")
+    
     entrepanos = db.relationship(
         "Entrepano",
         backref="estante",

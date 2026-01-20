@@ -1,0 +1,317 @@
+2026-01-20 16:20:18.717: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 16:20:18.717:  * Running on all addresses (0.0.0.0)
+2026-01-20 16:20:18.717:  * Running on http://127.0.0.1:5001
+2026-01-20 16:20:18.717:  * Running on http://192.168.1.101:5001
+2026-01-20 16:20:18.718: Press CTRL+C to quit
+2026-01-20 16:25:06.870: 192.168.0.31 - - [20/Jan/2026 11:25:06] "GET / HTTP/1.1" 200 -
+2026-01-20 16:25:09.665: 192.168.0.31 - - [20/Jan/2026 11:25:09] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:25:10.473: 192.168.0.31 - - [20/Jan/2026 11:25:10] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:25:11.375: 192.168.0.31 - - [20/Jan/2026 11:25:11] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 16:25:14.492: 192.168.0.31 - - [20/Jan/2026 11:25:14] "GET / HTTP/1.1" 200 -
+2026-01-20 16:25:15.659: 192.168.0.31 - - [20/Jan/2026 11:25:15] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:25:15.662: 192.168.0.31 - - [20/Jan/2026 11:25:15] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:25:22.329: 192.168.0.31 - - [20/Jan/2026 11:25:22] "GET / HTTP/1.1" 200 -
+2026-01-20 16:25:22.355: 192.168.0.31 - - [20/Jan/2026 11:25:22] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:25:22.356: 192.168.0.31 - - [20/Jan/2026 11:25:22] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:25:24.310: 192.168.0.31 - - [20/Jan/2026 11:25:24] "GET /estantes/1 HTTP/1.1" 200 -
+2026-01-20 16:25:24.515: 192.168.0.31 - - [20/Jan/2026 11:25:24] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:25:24.516: 192.168.0.31 - - [20/Jan/2026 11:25:24] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:25:25.726: 192.168.0.31 - - [20/Jan/2026 11:25:25] "GET /entrepanos/1 HTTP/1.1" 200 -
+2026-01-20 16:25:25.828: 192.168.0.31 - - [20/Jan/2026 11:25:25] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:25:25.830: 192.168.0.31 - - [20/Jan/2026 11:25:25] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:27:06.862: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 16:27:06.862:  * Running on all addresses (0.0.0.0)
+2026-01-20 16:27:06.862:  * Running on http://127.0.0.1:5001
+2026-01-20 16:27:06.862:  * Running on http://192.168.1.101:5001
+2026-01-20 16:27:06.862: Press CTRL+C to quit
+2026-01-20 16:49:16.124: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 16:49:16.124:  * Running on all addresses (0.0.0.0)
+2026-01-20 16:49:16.124:  * Running on http://127.0.0.1:5001
+2026-01-20 16:49:16.124:  * Running on http://192.168.1.101:5001
+2026-01-20 16:49:16.124: Press CTRL+C to quit
+2026-01-20 16:50:36.944: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 16:50:36.944:  * Running on all addresses (0.0.0.0)
+2026-01-20 16:50:36.944:  * Running on http://127.0.0.1:5001
+2026-01-20 16:50:36.944:  * Running on http://192.168.1.101:5001
+2026-01-20 16:50:36.944: Press CTRL+C to quit
+2026-01-20 16:50:40.929: 192.168.0.31 - - [20/Jan/2026 11:50:40] "GET / HTTP/1.1" 200 -
+2026-01-20 16:50:40.982: 192.168.0.31 - - [20/Jan/2026 11:50:40] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:50:40.986: 192.168.0.31 - - [20/Jan/2026 11:50:40] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:50:41.079: 192.168.0.31 - - [20/Jan/2026 11:50:41] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 16:50:42.582: 192.168.0.31 - - [20/Jan/2026 11:50:42] "GET / HTTP/1.1" 200 -
+2026-01-20 16:50:42.752: 192.168.0.31 - - [20/Jan/2026 11:50:42] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:50:42.754: 192.168.0.31 - - [20/Jan/2026 11:50:42] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:50:42.837: 192.168.0.31 - - [20/Jan/2026 11:50:42] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 16:50:46.350: [2026-01-20 11:50:46,253] ERROR in app: Exception on /exportar/pdf [GET]
+2026-01-20 16:50:46.350: Traceback (most recent call last):
+2026-01-20 16:50:46.350:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\orm\attributes.py", line 475, in __getattr__
+2026-01-20 16:50:46.350:     return getattr(self.comparator, key)
+2026-01-20 16:50:46.350:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1416, in __getattr__
+2026-01-20 16:50:46.350:     return self._fallback_getattr(key)
+2026-01-20 16:50:46.350:            ~~~~~~~~~~~~~~~~~~~~~~^^^^^
+2026-01-20 16:50:46.350:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1385, in _fallback_getattr
+2026-01-20 16:50:46.350:     raise AttributeError(key)
+2026-01-20 16:50:46.350: AttributeError: estante
+2026-01-20 16:50:46.350: 
+2026-01-20 16:50:46.350: The above exception was the direct cause of the following exception:
+2026-01-20 16:50:46.351: 
+2026-01-20 16:50:46.351: Traceback (most recent call last):
+2026-01-20 16:50:46.351:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+2026-01-20 16:50:46.351:     response = self.full_dispatch_request()
+2026-01-20 16:50:46.351:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+2026-01-20 16:50:46.351:     rv = self.handle_user_exception(e)
+2026-01-20 16:50:46.351:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+2026-01-20 16:50:46.351:     rv = self.dispatch_request()
+2026-01-20 16:50:46.351:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+2026-01-20 16:50:46.351:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+2026-01-20 16:50:46.351:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+2026-01-20 16:50:46.351:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 359, in exportar_pdf
+2026-01-20 16:50:46.351:     items = Item.query.order_by(Item.entrepano.estante.nombre).all()
+2026-01-20 16:50:46.351:                                 ^^^^^^^^^^^^^^^^^^^^^^
+2026-01-20 16:50:46.351:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\orm\attributes.py", line 477, in __getattr__
+2026-01-20 16:50:46.351:     raise AttributeError(
+2026-01-20 16:50:46.351:     ...<8 lines>...
+2026-01-20 16:50:46.351:     ) from err
+2026-01-20 16:50:46.351: AttributeError: Neither 'InstrumentedAttribute' object nor 'Comparator' object associated with Item.entrepano has an attribute 'estante'
+2026-01-20 16:50:46.351: 192.168.0.31 - - [20/Jan/2026 11:50:46] "GET /exportar/pdf HTTP/1.1" 500 -
+2026-01-20 16:50:49.866: [2026-01-20 11:50:49,858] ERROR in app: Exception on /exportar/pdf [GET]
+2026-01-20 16:50:49.867: Traceback (most recent call last):
+2026-01-20 16:50:49.867:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\orm\attributes.py", line 475, in __getattr__
+2026-01-20 16:50:49.867:     return getattr(self.comparator, key)
+2026-01-20 16:50:49.867:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1416, in __getattr__
+2026-01-20 16:50:49.867:     return self._fallback_getattr(key)
+2026-01-20 16:50:49.868:            ~~~~~~~~~~~~~~~~~~~~~~^^^^^
+2026-01-20 16:50:49.868:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1385, in _fallback_getattr
+2026-01-20 16:50:49.868:     raise AttributeError(key)
+2026-01-20 16:50:49.868: AttributeError: estante
+2026-01-20 16:50:49.868: 
+2026-01-20 16:50:49.868: The above exception was the direct cause of the following exception:
+2026-01-20 16:50:49.868: 
+2026-01-20 16:50:49.869: Traceback (most recent call last):
+2026-01-20 16:50:49.869:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+2026-01-20 16:50:49.869:     response = self.full_dispatch_request()
+2026-01-20 16:50:49.869:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+2026-01-20 16:50:49.869:     rv = self.handle_user_exception(e)
+2026-01-20 16:50:49.869:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+2026-01-20 16:50:49.869:     rv = self.dispatch_request()
+2026-01-20 16:50:49.869:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+2026-01-20 16:50:49.870:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+2026-01-20 16:50:49.870:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+2026-01-20 16:50:49.870:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 359, in exportar_pdf
+2026-01-20 16:50:49.870:     items = Item.query.order_by(Item.entrepano.estante.nombre).all()
+2026-01-20 16:50:49.870:                                 ^^^^^^^^^^^^^^^^^^^^^^
+2026-01-20 16:50:49.870:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\orm\attributes.py", line 477, in __getattr__
+2026-01-20 16:50:49.870:     raise AttributeError(
+2026-01-20 16:50:49.870:     ...<8 lines>...
+2026-01-20 16:50:49.871:     ) from err
+2026-01-20 16:50:49.871: AttributeError: Neither 'InstrumentedAttribute' object nor 'Comparator' object associated with Item.entrepano has an attribute 'estante'
+2026-01-20 16:50:49.871: 192.168.0.31 - - [20/Jan/2026 11:50:49] "GET /exportar/pdf HTTP/1.1" 500 -
+2026-01-20 16:50:53.201: [2026-01-20 11:50:53,192] ERROR in app: Exception on /exportar/pdf [GET]
+2026-01-20 16:50:53.201: Traceback (most recent call last):
+2026-01-20 16:50:53.201:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\orm\attributes.py", line 475, in __getattr__
+2026-01-20 16:50:53.201:     return getattr(self.comparator, key)
+2026-01-20 16:50:53.201:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1416, in __getattr__
+2026-01-20 16:50:53.201:     return self._fallback_getattr(key)
+2026-01-20 16:50:53.201:            ~~~~~~~~~~~~~~~~~~~~~~^^^^^
+2026-01-20 16:50:53.202:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1385, in _fallback_getattr
+2026-01-20 16:50:53.202:     raise AttributeError(key)
+2026-01-20 16:50:53.202: AttributeError: estante
+2026-01-20 16:50:53.202: 
+2026-01-20 16:50:53.202: The above exception was the direct cause of the following exception:
+2026-01-20 16:50:53.202: 
+2026-01-20 16:50:53.202: Traceback (most recent call last):
+2026-01-20 16:50:53.202:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+2026-01-20 16:50:53.202:     response = self.full_dispatch_request()
+2026-01-20 16:50:53.202:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+2026-01-20 16:50:53.203:     rv = self.handle_user_exception(e)
+2026-01-20 16:50:53.203:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+2026-01-20 16:50:53.203:     rv = self.dispatch_request()
+2026-01-20 16:50:53.203:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+2026-01-20 16:50:53.203:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+2026-01-20 16:50:53.203:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+2026-01-20 16:50:53.203:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 359, in exportar_pdf
+2026-01-20 16:50:53.204:     items = Item.query.order_by(Item.entrepano.estante.nombre).all()
+2026-01-20 16:50:53.204:                                 ^^^^^^^^^^^^^^^^^^^^^^
+2026-01-20 16:50:53.204:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\sqlalchemy\orm\attributes.py", line 477, in __getattr__
+2026-01-20 16:50:53.204:     raise AttributeError(
+2026-01-20 16:50:53.204:     ...<8 lines>...
+2026-01-20 16:50:53.204:     ) from err
+2026-01-20 16:50:53.204: AttributeError: Neither 'InstrumentedAttribute' object nor 'Comparator' object associated with Item.entrepano has an attribute 'estante'
+2026-01-20 16:50:53.204: 192.168.0.31 - - [20/Jan/2026 11:50:53] "GET /exportar/pdf HTTP/1.1" 500 -
+2026-01-20 16:54:39.077: 192.168.0.31 - - [20/Jan/2026 11:54:39] "GET /estantes/1 HTTP/1.1" 200 -
+2026-01-20 16:54:39.341: 192.168.0.31 - - [20/Jan/2026 11:54:39] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:54:39.343: 192.168.0.31 - - [20/Jan/2026 11:54:39] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:54:40.952: [2026-01-20 11:54:40,874] ERROR in app: Exception on /entrepanos/1 [GET]
+2026-01-20 16:54:40.952: Traceback (most recent call last):
+2026-01-20 16:54:40.952:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+2026-01-20 16:54:40.952:     response = self.full_dispatch_request()
+2026-01-20 16:54:40.952:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+2026-01-20 16:54:40.952:     rv = self.handle_user_exception(e)
+2026-01-20 16:54:40.952:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+2026-01-20 16:54:40.952:     rv = self.dispatch_request()
+2026-01-20 16:54:40.952:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+2026-01-20 16:54:40.952:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+2026-01-20 16:54:40.952:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 139, in detalle_entrepano
+2026-01-20 16:54:40.953:     return render_template(
+2026-01-20 16:54:40.953:     "detalle-entrepano.html",
+2026-01-20 16:54:40.953:     entrepano=entrepano,
+2026-01-20 16:54:40.953:     items=items
+2026-01-20 16:54:40.953:     )
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\templating.py", line 150, in render_template
+2026-01-20 16:54:40.953:     return _render(app, template, context)
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\templating.py", line 131, in _render
+2026-01-20 16:54:40.953:     rv = template.render(context)
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 1295, in render
+2026-01-20 16:54:40.953:     self.environment.handle_exception()
+2026-01-20 16:54:40.953:     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+2026-01-20 16:54:40.953:     raise rewrite_traceback_stack(source=source)
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\mapeo-inventario\templates\detalle-entrepano.html", line 1, in top-level template code
+2026-01-20 16:54:40.953:     {% extends "base.html" %}
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\mapeo-inventario\templates\base.html", line 58, in top-level template code
+2026-01-20 16:54:40.953:     {% block content %}{% endblock %}
+2026-01-20 16:54:40.953:     ^^^^^^^^^^^^^^^^^^^^^
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\mapeo-inventario\templates\detalle-entrepano.html", line 61, in block 'content'
+2026-01-20 16:54:40.953:     {{ generar_ubicacion(item) }}
+2026-01-20 16:54:40.953:     ^^^^^^^^^
+2026-01-20 16:54:40.953:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 27, in generar_ubicacion
+2026-01-20 16:54:40.953:     f"{item.entrepano.estante.tipo}"
+2026-01-20 16:54:40.953:        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-01-20 16:54:40.953: AttributeError: 'Estante' object has no attribute 'tipo'
+2026-01-20 16:54:40.953: 192.168.0.31 - - [20/Jan/2026 11:54:40] "GET /entrepanos/1 HTTP/1.1" 500 -
+2026-01-20 16:55:38.797: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 16:55:38.797:  * Running on all addresses (0.0.0.0)
+2026-01-20 16:55:38.797:  * Running on http://127.0.0.1:5001
+2026-01-20 16:55:38.797:  * Running on http://192.168.1.101:5001
+2026-01-20 16:55:38.797: Press CTRL+C to quit
+2026-01-20 16:55:41.564: 192.168.0.31 - - [20/Jan/2026 11:55:41] "GET / HTTP/1.1" 200 -
+2026-01-20 16:55:41.914: 192.168.0.31 - - [20/Jan/2026 11:55:41] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:55:41.918: 192.168.0.31 - - [20/Jan/2026 11:55:41] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:55:42.343: 192.168.0.31 - - [20/Jan/2026 11:55:42] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 16:55:42.955: [2026-01-20 11:55:42,949] ERROR in app: Exception on /exportar/pdf [GET]
+2026-01-20 16:55:42.955: Traceback (most recent call last):
+2026-01-20 16:55:42.955:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+2026-01-20 16:55:42.955:     response = self.full_dispatch_request()
+2026-01-20 16:55:42.955:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+2026-01-20 16:55:42.955:     rv = self.handle_user_exception(e)
+2026-01-20 16:55:42.955:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+2026-01-20 16:55:42.955:     rv = self.dispatch_request()
+2026-01-20 16:55:42.955:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+2026-01-20 16:55:42.955:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+2026-01-20 16:55:42.955:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+2026-01-20 16:55:42.955:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 375, in exportar_pdf
+2026-01-20 16:55:42.955:     Estante.tipo,
+2026-01-20 16:55:42.955:     ^^^^^^^^^^^^
+2026-01-20 16:55:42.955: AttributeError: type object 'Estante' has no attribute 'tipo'
+2026-01-20 16:55:42.955: 192.168.0.31 - - [20/Jan/2026 11:55:42] "GET /exportar/pdf HTTP/1.1" 500 -
+2026-01-20 16:55:47.302: [2026-01-20 11:55:47,298] ERROR in app: Exception on /exportar/excel [GET]
+2026-01-20 16:55:47.302: Traceback (most recent call last):
+2026-01-20 16:55:47.302:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+2026-01-20 16:55:47.303:     response = self.full_dispatch_request()
+2026-01-20 16:55:47.303:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+2026-01-20 16:55:47.303:     rv = self.handle_user_exception(e)
+2026-01-20 16:55:47.303:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+2026-01-20 16:55:47.303:     rv = self.dispatch_request()
+2026-01-20 16:55:47.303:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+2026-01-20 16:55:47.303:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+2026-01-20 16:55:47.303:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+2026-01-20 16:55:47.304:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 324, in exportar_excel
+2026-01-20 16:55:47.304:     Estante.tipo,
+2026-01-20 16:55:47.304:     ^^^^^^^^^^^^
+2026-01-20 16:55:47.304: AttributeError: type object 'Estante' has no attribute 'tipo'
+2026-01-20 16:55:47.304: 192.168.0.31 - - [20/Jan/2026 11:55:47] "GET /exportar/excel HTTP/1.1" 500 -
+2026-01-20 16:58:18.271: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 16:58:18.271:  * Running on all addresses (0.0.0.0)
+2026-01-20 16:58:18.271:  * Running on http://127.0.0.1:5001
+2026-01-20 16:58:18.271:  * Running on http://192.168.1.101:5001
+2026-01-20 16:58:18.271: Press CTRL+C to quit
+2026-01-20 16:58:46.328: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 16:58:46.328:  * Running on all addresses (0.0.0.0)
+2026-01-20 16:58:46.328:  * Running on http://127.0.0.1:5001
+2026-01-20 16:58:46.328:  * Running on http://192.168.1.101:5001
+2026-01-20 16:58:46.328: Press CTRL+C to quit
+2026-01-20 16:58:48.224: 192.168.0.31 - - [20/Jan/2026 11:58:48] "GET / HTTP/1.1" 200 -
+2026-01-20 16:58:48.383: 192.168.0.31 - - [20/Jan/2026 11:58:48] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:58:48.385: 192.168.0.31 - - [20/Jan/2026 11:58:48] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:58:48.415: 192.168.0.31 - - [20/Jan/2026 11:58:48] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 16:58:49.642: 192.168.0.31 - - [20/Jan/2026 11:58:49] "GET / HTTP/1.1" 200 -
+2026-01-20 16:58:49.674: 192.168.0.31 - - [20/Jan/2026 11:58:49] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 16:58:49.675: 192.168.0.31 - - [20/Jan/2026 11:58:49] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 16:58:49.718: 192.168.0.31 - - [20/Jan/2026 11:58:49] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 16:58:51.112: 192.168.0.31 - - [20/Jan/2026 11:58:51] "GET / HTTP/1.1" 200 -
+2026-01-20 16:58:51.153: 192.168.0.31 - - [20/Jan/2026 11:58:51] "GET /static/css/styles.css HTTP/1.1" 200 -
+2026-01-20 16:58:51.155: 192.168.0.31 - - [20/Jan/2026 11:58:51] "GET /static/img/logo.png HTTP/1.1" 200 -
+2026-01-20 16:58:51.656: 192.168.0.31 - - [20/Jan/2026 11:58:51] "GET /static/img/favicon.ico HTTP/1.1" 200 -
+2026-01-20 16:58:52.647: [2026-01-20 11:58:52,640] ERROR in app: Exception on /exportar/pdf [GET]
+2026-01-20 16:58:52.647: Traceback (most recent call last):
+2026-01-20 16:58:52.647:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+2026-01-20 16:58:52.647:     response = self.full_dispatch_request()
+2026-01-20 16:58:52.647:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+2026-01-20 16:58:52.647:     rv = self.handle_user_exception(e)
+2026-01-20 16:58:52.647:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+2026-01-20 16:58:52.647:     rv = self.dispatch_request()
+2026-01-20 16:58:52.647:   File "C:\Users\Produccion\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+2026-01-20 16:58:52.647:     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+2026-01-20 16:58:52.647:            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+2026-01-20 16:58:52.647:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 365, in exportar_pdf
+2026-01-20 16:58:52.648:     ubicacion = generar_ubicacion(item)
+2026-01-20 16:58:52.648:   File "C:\Users\Produccion\mapeo-inventario\app.py", line 27, in generar_ubicacion
+2026-01-20 16:58:52.648:     f"{item.entrepano.estante.tipo}"
+2026-01-20 16:58:52.648:        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-01-20 16:58:52.648: AttributeError: 'Estante' object has no attribute 'tipo'
+2026-01-20 16:58:52.648: 192.168.0.31 - - [20/Jan/2026 11:58:52] "GET /exportar/pdf HTTP/1.1" 500 -
+2026-01-20 16:58:52.971: 192.168.0.31 - - [20/Jan/2026 11:58:52] "GET /favicon.ico HTTP/1.1" 404 -
+2026-01-20 17:00:31.925: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 17:00:31.925:  * Running on all addresses (0.0.0.0)
+2026-01-20 17:00:31.925:  * Running on http://127.0.0.1:5001
+2026-01-20 17:00:31.925:  * Running on http://192.168.1.101:5001
+2026-01-20 17:00:31.925: Press CTRL+C to quit
+2026-01-20 17:00:41.833: 192.168.0.31 - - [20/Jan/2026 12:00:41] "GET / HTTP/1.1" 200 -
+2026-01-20 17:00:42.092: 192.168.0.31 - - [20/Jan/2026 12:00:42] "GET /static/css/styles.css HTTP/1.1" 200 -
+2026-01-20 17:00:42.099: 192.168.0.31 - - [20/Jan/2026 12:00:42] "GET /static/img/logo.png HTTP/1.1" 200 -
+2026-01-20 17:00:42.444: 192.168.0.31 - - [20/Jan/2026 12:00:42] "GET /static/img/favicon.ico HTTP/1.1" 200 -
+2026-01-20 17:00:44.355: 192.168.0.31 - - [20/Jan/2026 12:00:44] "GET /exportar/pdf HTTP/1.1" 200 -
+2026-01-20 17:05:25.916: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 17:05:25.916:  * Running on all addresses (0.0.0.0)
+2026-01-20 17:05:25.916:  * Running on http://127.0.0.1:5001
+2026-01-20 17:05:25.916:  * Running on http://192.168.1.101:5001
+2026-01-20 17:05:25.916: Press CTRL+C to quit
+2026-01-20 17:06:08.711: 192.168.0.31 - - [20/Jan/2026 12:06:08] "GET / HTTP/1.1" 200 -
+2026-01-20 17:06:08.951: 192.168.0.31 - - [20/Jan/2026 12:06:08] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:06:08.955: 192.168.0.31 - - [20/Jan/2026 12:06:08] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:06:08.980: 192.168.0.31 - - [20/Jan/2026 12:06:08] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 17:06:09.943: 192.168.0.31 - - [20/Jan/2026 12:06:09] "GET /exportar/pdf HTTP/1.1" 200 -
+2026-01-20 17:06:29.612: 192.168.0.31 - - [20/Jan/2026 12:06:29] "GET /exportar/excel HTTP/1.1" 200 -
+2026-01-20 17:06:58.074: 192.168.0.31 - - [20/Jan/2026 12:06:58] "GET /estantes/2 HTTP/1.1" 200 -
+2026-01-20 17:06:58.247: 192.168.0.31 - - [20/Jan/2026 12:06:58] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:06:58.250: 192.168.0.31 - - [20/Jan/2026 12:06:58] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:07:00.823: 192.168.0.31 - - [20/Jan/2026 12:07:00] "GET /entrepanos/12 HTTP/1.1" 200 -
+2026-01-20 17:07:01.081: 192.168.0.31 - - [20/Jan/2026 12:07:01] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:07:01.088: 192.168.0.31 - - [20/Jan/2026 12:07:01] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:10:25.500: 192.168.0.31 - - [20/Jan/2026 12:10:25] "GET /entrepanos/11 HTTP/1.1" 200 -
+2026-01-20 17:10:25.540: 192.168.0.31 - - [20/Jan/2026 12:10:25] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:10:25.594: 192.168.0.31 - - [20/Jan/2026 12:10:25] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:31:13.987: 192.168.0.31 - - [20/Jan/2026 12:31:13] "GET /estantes/2 HTTP/1.1" 200 -
+2026-01-20 17:31:14.017: 192.168.0.31 - - [20/Jan/2026 12:31:14] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:31:14.018: 192.168.0.31 - - [20/Jan/2026 12:31:14] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:31:25.178: 192.168.0.31 - - [20/Jan/2026 12:31:25] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 17:32:44.567: 192.168.0.31 - - [20/Jan/2026 12:32:44] "GET / HTTP/1.1" 200 -
+2026-01-20 17:32:44.866: 192.168.0.31 - - [20/Jan/2026 12:32:44] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:32:44.869: 192.168.0.31 - - [20/Jan/2026 12:32:44] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:32:45.602: 192.168.0.31 - - [20/Jan/2026 12:32:45] "GET / HTTP/1.1" 200 -
+2026-01-20 17:32:45.695: 192.168.0.31 - - [20/Jan/2026 12:32:45] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:32:45.697: 192.168.0.31 - - [20/Jan/2026 12:32:45] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:34:34.116: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2026-01-20 17:34:34.116:  * Running on all addresses (0.0.0.0)
+2026-01-20 17:34:34.116:  * Running on http://127.0.0.1:5001
+2026-01-20 17:34:34.116:  * Running on http://192.168.1.101:5001
+2026-01-20 17:34:34.116: Press CTRL+C to quit
+2026-01-20 17:34:34.430: 192.168.0.31 - - [20/Jan/2026 12:34:34] "GET / HTTP/1.1" 200 -
+2026-01-20 17:34:34.708: 192.168.0.31 - - [20/Jan/2026 12:34:34] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:34:34.778: 192.168.0.31 - - [20/Jan/2026 12:34:34] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:34:34.867: 192.168.0.31 - - [20/Jan/2026 12:34:34] "GET /static/img/favicon.ico HTTP/1.1" 304 -
+2026-01-20 17:34:37.582: 192.168.0.31 - - [20/Jan/2026 12:34:37] "GET / HTTP/1.1" 200 -
+2026-01-20 17:34:37.870: 192.168.0.31 - - [20/Jan/2026 12:34:37] "GET /static/css/styles.css HTTP/1.1" 304 -
+2026-01-20 17:34:37.896: 192.168.0.31 - - [20/Jan/2026 12:34:37] "GET /static/img/logo.png HTTP/1.1" 304 -
+2026-01-20 17:34:38.212: 192.168.0.31 - - [20/Jan/2026 12:34:38] "GET /static/img/favicon.ico HTTP/1.1" 304 -

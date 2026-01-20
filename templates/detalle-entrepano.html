@@ -45,9 +45,7 @@
     </select>
     </div>
 
-    <p class="mt-2 ubicacion">
-        Ubicación relativa: P{{ entrepano.estante.nombre }}{{ entrepano.nivel }}X
-    </p>
+
 
     <button class="btn btn-primary mt-2">Crear</button>
 </form>
@@ -60,7 +58,7 @@
         <div class="border p-2 mb-2 text-center">
             📍 Ubicación:
             <strong>
-                P{{ item.entrepano.estante.nombre }}{{ item.entrepano.nivel }}{{ "%02d"|format(item.division) }}
+                {{ generar_ubicacion(item) }}
             </strong>
         </div>
 
